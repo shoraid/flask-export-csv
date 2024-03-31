@@ -10,8 +10,30 @@
     <div class="container-fluid">
         <h1 class="text-center">Data Table</h1>
 
-        <form action="/download_csv" method="post" class="my-3">
-            <button type="submit" class="btn btn-primary">Download CSV</button>
+        <form action="/" method="get" class="my-3 d-sm-flex gap-3">
+            <div class="mb-3 mb-sm-0" style="max-width: 150px;">
+                <label for="start_date" class="form-label">Start Date</label>
+                <input type="date" name="start_date" id="start_date" value="{{start_date}}" class="form-control">
+            </div>
+
+            <div class="mb-3 mb-sm-0" style="max-width: 150px;">
+                <label for="end_date" class="form-label">End Date</label>
+                <input type="date" name="end_date" value="{{end_date}}" class="form-control"> 
+            </div>
+
+            <div class="d-flex align-items-end">
+                <div class="d-sm-flex align-items-center gap-1">
+                    <button type="submit" class="btn btn-primary">Filter Data</button>
+                    <div class="text-secondary"> (filter butuh Start Date dan End Date)</div>  
+                </div>
+            </div>
+        </form>
+
+        <hr>
+        
+        <!-- Button download -->
+        <form action="/" method="get" class="my-3">
+            <button id="download" type="button" class="btn btn-success">Download CSV</button>
         </form>
 
         <div class="table-responsive">
@@ -35,5 +57,16 @@
             </table>
         </div>
     </div>
+
+    <!-- Algoritma untuk button download -->
+    <script>
+        // Jika button download di klik, maka berikan parameter download berupa nilai 1
+        // Jika parameter download tidak kosong, maka akan mentrigger pemrosesan export data ke CSV
+        document.getElementById('download').addEventListener('click', function() {
+            let searchParams = new URLSearchParams(window.location.search);
+            searchParams.set('download', 1);
+            window.location.search = searchParams.toString();
+        });
+    </script>
 </body>
 </html>
